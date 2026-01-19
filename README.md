@@ -2,6 +2,8 @@
 
 ESPHome configuration for the Ventair SkyFan DC ceiling fan Tuya module (SKYAPPCM). This project replaces the cloud-dependent module with a local ESP based module via ESPHome, enabling full local integration with Home Assistant. 
 
+Fan Speed, Brightness & Color Temperature work with the native HA Light & Fan UI panels.
+
 This module can be bought Plug & Play from here:
 https://lagomcontrol.com.au/product/skyfan-esphome/
 

@@ -180,7 +180,7 @@ output:
       - lambda: 'return;'
 
 sensor:
-  # Estimated fan power consumption
+  # Estimated fan power consumption based on data sheets
   - platform: template
     id: fan_power
     name: ${friendly_name} input power
@@ -202,7 +202,7 @@ sensor:
         : 0.0f;
     disabled_by_default: true
 
-  # Estimated led power consumption
+  # Estimated led power consumption based on data sheets
   - platform: template
     id: light_power
     name: ${friendly_name} input power
@@ -216,3 +216,4 @@ sensor:
         ? id(skyfan_light).current_values.get_brightness() * 20.0f 
         : 0.0f;
     disabled_by_default: true
+

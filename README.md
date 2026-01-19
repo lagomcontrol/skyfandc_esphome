@@ -30,7 +30,7 @@ This project provides a complete ESPHome implementation for the Ventair Skyfan D
   - Color Temperature ( 3000K / 4000K / 5000K )
 
 ## Technical Details
-I wanted all controls to map to HA native Fan & Light UI elements without relying on secondaray dropdowns. However because of how the Datapoint's work on this fan, we have to intercept all calls with lambda functions to map HA control values to the Tuya MCU values.
+I wanted all controls to map to HA native Fan & Light UI elements without relying on secondary dropdowns. However because of how the Datapoint's work on this fan, we have to intercept all calls with lambda functions to map HA control values to the Tuya MCU values.
 
 - ### Color Temperature Mapping ( 19 )
   - 0 -> 5000K

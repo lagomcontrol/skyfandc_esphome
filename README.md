@@ -5,7 +5,7 @@ ESPHome configuration for the Ventair SkyFan DC ceiling fan Tuya module (SKYAPPC
 This module can be bought Plug & Play from here:
 https://lagomcontrol.com.au/product/skyfan-esphome/
 
-NOTE: To use the factory app you must use the factoty module. This is for Home Assistant integration only.
+NOTE: To use the factory app you must use the factory module. This is for Home Assistant integration only.
 
 ## Overview
 

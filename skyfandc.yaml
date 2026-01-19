@@ -157,10 +157,12 @@ fan:
           id(tuyamcu).set_integer_datapoint_value(3, speeds[x]);
 
     on_turn_on:
-      - lambda: 'id(tuyamcu).set_boolean_datapoint_value(1, true);'
+      - lambda: |-
+          id(tuyamcu).set_boolean_datapoint_value(1, true);
 
     on_turn_off:
-      - lambda: 'id(tuyamcu).set_boolean_datapoint_value(1, false);'
+      - lambda: |-
+          id(tuyamcu).set_boolean_datapoint_value(1, false);
 
     on_direction_set:
       - lambda: |-
@@ -214,6 +216,7 @@ sensor:
       return id(skyfan_light).state 
         ? id(skyfan_light).current_values.get_brightness() * 20.0f 
         : 0.0f;
+
 
 
 

@@ -12,11 +12,11 @@ This project provides a complete ESPHome implementation for the Ventair Skyfan D
   - Full bidirectional communication so remote works and feeds back to Home Assistant
   - All controls are mapped to native HA UI elements
       
-- ## Hardware
+## Hardware
   - ESP32-C3-SuperMini (esp32-c3-devkitm-1)
   - Custom Adaptor PCB
                      
-- ## Features
+## Features
 - ### Fan Control
   - Fan on/off control 
   - Fan Speeds ( 6 Steps )
@@ -26,7 +26,7 @@ This project provides a complete ESPHome implementation for the Ventair Skyfan D
   - Brightness ( 5 Steps ) 
   - Color Temperature ( 3000K / 4000K / 5000K )
 
-- ## Technical Details
+## Technical Details
 I wanted all controls to map to HA native Fan & Light UI elements without relying on secondaray dropdowns. However becuase of how the Datapoint's work on this fan, we have to intercept all calls with lambda functions to map HA control values to the Tuya MCU values.
 
 - ### Color Temperature Mapping ( 19 )

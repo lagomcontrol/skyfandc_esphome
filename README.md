@@ -2,6 +2,9 @@
 
 ESPHome configuration for the Ventair SkyFan DC ceiling fan Tuya module (SKYAPPCM). This project replaces the cloud-dependent firmware with local control via ESPHome, enabling full integration with Home Assistant and other home automation platforms.
 
+This module can be bought Plug & Play from here
+https://lagomcontrol.com.au/product/skyfan-esphome/
+
 ## Overview
 
 This project provides a complete ESPHome implementation for the Ventair Skyfan DC ceiling fan, which features:-
@@ -27,7 +30,7 @@ This project provides a complete ESPHome implementation for the Ventair Skyfan D
   - Color Temperature ( 3000K / 4000K / 5000K )
 
 ## Technical Details
-I wanted all controls to map to HA native Fan & Light UI elements without relying on secondaray dropdowns. However becuase of how the Datapoint's work on this fan, we have to intercept all calls with lambda functions to map HA control values to the Tuya MCU values.
+I wanted all controls to map to HA native Fan & Light UI elements without relying on secondaray dropdowns. However because of how the Datapoint's work on this fan, we have to intercept all calls with lambda functions to map HA control values to the Tuya MCU values.
 
 - ### Color Temperature Mapping ( 19 )
   - 0 -> 5000K

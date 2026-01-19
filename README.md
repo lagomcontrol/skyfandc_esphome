@@ -8,7 +8,7 @@ ESPHome firmware for the WiFi Ceiling Fan module developed to be compatible with
 Fan Speed, Brightness & Color Temperature work with the native HA Light & Fan UI panels.
 
 This module can be bought Plug & Play from here:
-https://lagomcontrol.com.au/product/skyfan-esphome
+https://lagomcontrol.com.au/product/wifi-ceiling-fan/
 
 ## Overview
 

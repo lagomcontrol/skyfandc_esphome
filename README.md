@@ -3,7 +3,7 @@
 <b>WARNING: This firmware or it's associated module is not endorsed or approved by Ventair. It’s use will void any warranties you may have with them.
 NOTE: To use the OEM Ventair app you must use the factory module. This is for Home Assistant integration only and is not intended to provide OEM functionality.</b>
 
-ESPHome firmware for the WiFi Ceiling Fan module developed to be contatible with the Ventair SkyFan DC ceiling fan range as an alternative to the official module (SKYAPPCM). This project replaces the cloud-dependent module with a local ESP based module via ESPHome, enabling full local integration with Home Assistant.
+ESPHome firmware for the WiFi Ceiling Fan module developed to be compatible with the Ventair SkyFan DC ceiling fan range as a not like-for-like alternative to the official module (SKYAPPCM). This project replaces the cloud-dependent module with a local ESP based module via ESPHome, enabling full local integration with Home Assistant.
 
 Fan Speed, Brightness & Color Temperature work with the native HA Light & Fan UI panels.
 

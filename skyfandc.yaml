@@ -200,7 +200,6 @@ sensor:
       return id(skyfan_fan).state 
         ? ${skyfan_model}[(int)id(skyfan_fan).speed] 
         : 0.0f;
-    disabled_by_default: true
 
   # Estimated led power consumption based on data sheets
   - platform: template
@@ -215,7 +214,7 @@ sensor:
       return id(skyfan_light).state 
         ? id(skyfan_light).current_values.get_brightness() * 20.0f 
         : 0.0f;
-    disabled_by_default: true
+
 
 
 

@@ -65,3 +65,5 @@ Datapoints, Module Pinouts & Inspiration originally from here.
 Similar Projects
 - https://github.com/Jagomeister/ESPHome-SkyFan-DC
 - https://github.com/SirMrDexter/skyfandc
+- https://github.com/timothyarnold1982/VentairSkyfanDC
+- https://github.com/husnainali09/skyfandc

@@ -68,6 +68,8 @@ tuya:
       then:
         - lambda: |-
             id(ceilingfan_fan).make_call().set_state(x).perform();
+        - component.update: light_power
+        - component.update: fan_power
 
     # Listen for speed changes from remote
     - sensor_datapoint: 3
@@ -76,6 +78,8 @@ tuya:
         - lambda: |-
             static const std::map<int, int> speed_map = {{1,1}, {6,2}, {2,3}, {3,4}, {4,5}, {5,6}};
             id(ceilingfan_fan).make_call().set_speed(speed_map.at(x)).perform();
+        - component.update: light_power
+        - component.update: fan_power
 
     # Listen for direction changes from remote
     - sensor_datapoint: 8
@@ -92,6 +96,8 @@ tuya:
       then:
         - lambda: |-
             id(ceilingfan_light).make_call().set_state(x).perform();
+        - component.update: light_power
+        - component.update: fan_power
 
     # Listen for brightness from remote
     - sensor_datapoint: 16
@@ -99,6 +105,8 @@ tuya:
       then:
         - lambda: |-
             id(ceilingfan_light).make_call().set_brightness(x / 5.0).perform();
+        - component.update: light_power
+        - component.update: fan_power
 
     # Listen for color temp from remote
     - sensor_datapoint: 19

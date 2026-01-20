@@ -216,7 +216,7 @@ sensor:
         ? ${ceilingfan_model}[(int)id(ceilingfan_fan).speed] 
         : 0.0f;
 
-  # Estimated led power consumption based on data sheets
+  # Estimated led power consumption based on brightness as percentage of max wattage from datasheet
   - platform: template
     id: light_power
     name: ${friendly_name} light input power
@@ -228,3 +228,4 @@ sensor:
       return id(ceilingfan_light).current_values.is_on() 
         ? id(ceilingfan_light).current_values.get_brightness() * 20.0f 
         : 0.0f;
+

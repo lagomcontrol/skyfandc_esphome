@@ -1,7 +1,6 @@
 substitutions:
   name: ceilingfandc01
   friendly_name: Ceiling Fan DC01
-  ceilingfan_model: SKY1203 # Options: SKY903 SKY1203 SKY1204 SKY1303 SKY1404 SKY1503
   
 esphome:
   name: ${name}
@@ -195,6 +194,23 @@ output:
     write_action:
       - lambda: 'return;'
 
+select:
+  - platform: template
+    name: "${friendly_name} Fan Model"
+    id: fan_model_select
+    optimistic: true
+    restore_value: true
+    options:
+      - "903"
+      - "1203"
+      - "1204"
+      - "1303"
+      - "1404"
+      - "1503"
+    initial_option: "1203"
+    icon: "mdi:fan"
+    entity_category: config
+
 sensor:
   # Estimated fan power consumption based on data sheets
   - platform: template
@@ -205,16 +221,19 @@ sensor:
     state_class: "measurement"
     accuracy_decimals: 1
     lambda: |-
-      static const float SKY903[7]   = {0,3,4.8,7,12,19.5,32};
-      static const float SKY1203[7]  = {0,3.6,5.4,8,15,22,32.5};
-      static const float SKY1204[7]  = {0,3.8,5.8,9,17,27,30};
-      static const float SKY1303[7]  = {0,3.9,5.8,9,15.6,25.2,31.8};
-      static const float SKY1404[7]  = {0,3.5,5.5,8,15,23,38};
-      static const float SKY1503[7]  = {0,3.9,6,9,16,26,44.2};
- 
-      return id(ceilingfan_fan).state 
-        ? ${ceilingfan_model}[(int)id(ceilingfan_fan).speed] 
-        : 0.0f;
+          static const std::map<std::string, std::array<float, 7>> models = {
+            {"903",  {0, 3, 4.8, 7, 12, 19.5, 32}},
+            {"1203", {0, 3.6, 5.4, 8, 15, 22, 32.5}},
+            {"1204", {0, 3.8, 5.8, 9, 17, 27, 30}},
+            {"1303", {0, 3.9, 5.8, 9, 15.6, 25.2, 31.8}},
+            {"1404", {0, 3.5, 5.5, 8, 15, 23, 38}},
+            {"1503", {0, 3.9, 6, 9, 16, 26, 44.2}}
+          };
+          
+          if (!id(ceilingfan_fan).state) return 0.0f;
+          
+          auto it = models.find(id(fan_model_select).current_option());
+          return (it != models.end()) ? it->second[id(ceilingfan_fan).speed] : 0.0f;
 
   # Estimated led power consumption based on brightness as percentage of max wattage from datasheet
   - platform: template
@@ -228,5 +247,8 @@ sensor:
       return id(ceilingfan_light).current_values.is_on() 
         ? id(ceilingfan_light).current_values.get_brightness() * 20.0f 
         : 0.0f;
+
+
+
 
 

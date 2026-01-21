@@ -40,14 +40,14 @@ web_server:
 
 # Enable WiFi and AP for captive portal
 wifi:
-  ssid: !secret ssid
-  password: !secret password
-  domain: !secret domain
+  Commented our to force wiFi Captive Portal. Reinstate once set in secrets
+  # ssid: !secret ssid
+  # password: !secret password
+  # domain: !secret domain
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "${friendly_name} ESP"
-    password: !secret fallback_password
 
 captive_portal:
 
@@ -228,4 +228,5 @@ sensor:
       return id(ceilingfan_light).current_values.is_on() 
         ? id(ceilingfan_light).current_values.get_brightness() * 20.0f 
         : 0.0f;
+
 

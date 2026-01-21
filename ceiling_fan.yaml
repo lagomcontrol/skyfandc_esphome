@@ -1,11 +1,10 @@
 substitutions:
-  name: ceilingfandc01
-  friendly_name: Ceiling Fan DC01
+  name: ceilingfan
+  friendly_name: Ceiling Fan
   
 esphome:
   name: ${name}
   friendly_name: ${friendly_name}
-  name_add_mac_suffix: true
   project:
     name: lagomcontrol.esphome_wifi_ceilingfan_module
     version: "1.0"
@@ -253,6 +252,7 @@ sensor:
       return id(ceilingfan_light).current_values.is_on() 
         ? id(ceilingfan_light).current_values.get_brightness() * 20.0f 
         : 0.0f;
+
 
 
 

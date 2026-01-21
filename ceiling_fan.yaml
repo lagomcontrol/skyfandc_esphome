@@ -1,24 +1,16 @@
 substitutions:
   name: ceilingfan
   friendly_name: Ceiling Fan
-  
+
 esphome:
   name: ${name}
   friendly_name: ${friendly_name}
-  project:
-    name: lagomcontrol.esphome_wifi_ceilingfan_module
-    version: "1.0"
 
 # Define the board for the compiler
 esp32:
   board: esp32-c3-devkitm-1
   framework:
     type: arduino
-    
-# Dashboard import if you want to adopt the device on your esphome dashboard
-dashboard_import:
-  package_import_url: github://lagomcontrol/esphome_wifi_ceilingfan_module/ceiling_fan.yaml@main
-  import_full_config: false
 
 # Enable logging
 logger:
@@ -38,10 +30,9 @@ web_server:
 
 # Enable WiFi and AP for captive portal
 wifi:
-  # Commented out to force wiFi captive portal on new units. Reinstate once credentials set in secrets
-  # ssid: !secret ssid
-  # password: !secret password
-  # domain: !secret domain
+  ssid: !secret ssid
+  password: !secret password
+  domain: !secret domain
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
@@ -252,11 +243,3 @@ sensor:
       return id(ceilingfan_light).current_values.is_on() 
         ? id(ceilingfan_light).current_values.get_brightness() * 20.0f 
         : 0.0f;
-
-
-
-
-
-
-
-

@@ -76,7 +76,7 @@ logger:
 # Enable Home Assistant API
 api:
   encryption:
-   # key: !secret api_key // uncomment when Loading into ESPHome
+   # key: !secret api_key # uncomment when Loading into ESPHome
 
 # Enable OTA
 ota:
@@ -88,9 +88,9 @@ web_server:
 
 # Enable WiFi and AP for captive portal
 wifi:
- # ssid: !secret ssid // uncomment when Loading into ESPHome
- # password: !secret password // uncomment when Loading into ESPHome
- # domain: !secret domain // uncomment when Loading into ESPHome
+ # ssid: !secret ssid # uncomment when Loading into ESPHome
+ # password: !secret password # uncomment when Loading into ESPHome
+ # domain: !secret domain # uncomment when Loading into ESPHome
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
@@ -363,6 +363,7 @@ sensor:
       return id(ceilingfan_light).current_values.is_on() 
         ? id(ceilingfan_light).current_values.get_brightness() * 20.0f 
         : 0.0f;
+
 
 
 

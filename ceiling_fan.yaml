@@ -274,6 +274,7 @@ select:
       - "Always Off"
     initial_option: "Restore"
     restore_value: true
+    disabled_by_default: true
 
   - platform: template
     name: "${friendly_name} Fan Power On State"
@@ -363,6 +364,7 @@ sensor:
       return id(ceilingfan_light).current_values.is_on() 
         ? id(ceilingfan_light).current_values.get_brightness() * 20.0f 
         : 0.0f;
+
 
 
 

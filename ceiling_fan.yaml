@@ -8,38 +8,55 @@ esphome:
 
   # Power Restore State Handling
   on_boot:
-    - priority: 600  # Run early, before UART/Tuya connection
+    - priority: 200  # Run after components initialized, before UART/Tuya connection
       then:
-        # Read and store light power on preference
+        # Read and store all restoration data
         - lambda: |-
-            std::string light_setting = id(light_power_on_state).current_option();
-            id(light_boot_state) = (light_setting == "Always On") ? true : 
-                                    (light_setting == "Always Off") ? false : 
-                                    id(ceilingfan_light).current_values.is_on();
-        
-        # Read and store fan power on preference
-        - lambda: |-
-            std::string fan_setting = id(fan_power_on_state).current_option();
-            id(fan_boot_state) = (fan_setting == "Always On") ? true : 
-                                  (fan_setting == "Always Off") ? false : 
-                                  id(ceilingfan_fan).state;
+            // Store all data: [light_on, light_brightness, light_temp, fan_on, fan_speed, fan_direction]
+            
+            // Light power state based on preference
+            id(boot_restore_data)[0] = (id(light_power_on_state).current_option() == "Always On") ? 1 : 
+                                       (id(light_power_on_state).current_option() == "Always Off") ? 0 : 
+                                       id(ceilingfan_light).current_values.is_on() ? 1 : 0;
+            
+            // Light brightness and color temp
+            id(boot_restore_data)[1] = (int)(id(ceilingfan_light).current_values.get_brightness() * 5);
+            auto color_temp_mireds = id(ceilingfan_light).current_values.get_color_temperature();
+            id(boot_restore_data)[2] = (color_temp_mireds > 291) ? 2 : (color_temp_mireds > 225) ? 1 : 0;
+            
+            // Fan power state based on preference
+            id(boot_restore_data)[3] = (id(fan_power_on_state).current_option() == "Always On") ? 1 : 
+                                       (id(fan_power_on_state).current_option() == "Always Off") ? 0 : 
+                                       id(ceilingfan_fan).state ? 1 : 0;
+            
+            // Fan speed and direction
+            int speeds[] = {0, 1, 6, 2, 3, 4, 5};
+            id(boot_restore_data)[4] = speeds[(int)id(ceilingfan_fan).speed];
+            id(boot_restore_data)[5] = (id(ceilingfan_fan).direction == fan::FanDirection::FORWARD) ? 0 : 1;
     
     - priority: -100  # Run late, after Tuya connection established
       then:
-        # Send stored boot states to MCU
+        # Send stored restoration data to MCU
         - lambda: |-
-            id(tuyamcu).set_boolean_datapoint_value(15, id(light_boot_state));
-            id(tuyamcu).set_boolean_datapoint_value(1, id(fan_boot_state));
+            // Restore light
+            id(tuyamcu).set_boolean_datapoint_value(15, id(boot_restore_data)[0]);
+            if (id(boot_restore_data)[0]) {
+              id(tuyamcu).set_integer_datapoint_value(16, id(boot_restore_data)[1]);
+              id(tuyamcu).set_enum_datapoint_value(19, id(boot_restore_data)[2]);
+            }
+            
+            // Restore fan
+            id(tuyamcu).set_boolean_datapoint_value(1, id(boot_restore_data)[3]);
+            if (id(boot_restore_data)[3]) {
+              id(tuyamcu).set_integer_datapoint_value(3, id(boot_restore_data)[4]);
+              id(tuyamcu).set_enum_datapoint_value(8, id(boot_restore_data)[5]);
+            }
 
 globals:
-  - id: light_boot_state
-    type: bool
+  - id: boot_restore_data
+    type: int[6]  # [light_on, light_brightness, light_temp, fan_on, fan_speed, fan_direction]
     restore_value: no
-    initial_value: 'false'
-  - id: fan_boot_state
-    type: bool
-    restore_value: no
-    initial_value: 'false'
+    initial_value: '{0,0,0,0,0,0}'
 
 # Define the board for the compiler
 esp32:
@@ -308,4 +325,5 @@ sensor:
       return id(ceilingfan_light).current_values.is_on() 
         ? id(ceilingfan_light).current_values.get_brightness() * 20.0f 
         : 0.0f;
+
 

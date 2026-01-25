@@ -19,6 +19,7 @@ This project provides a complete Wifi ESPHome based module intended to be compat
   - Adjustable color temperature (3 steps)
   - Full bidirectional communication so remote works and feeds back to Home Assistant
   - All controls are mapped to native HA UI elements
+  - Restore full Fan & Light state on power resume
 
 Functions such as timers or sleep mode are not implemented and assumed handled by Home Assistant.
       
@@ -56,6 +57,8 @@ I wanted all controls to map to HA native Fan & Light UI elements without relyin
   - 3 -> 66.6%
   - 4 -> 83.3%
   - 5 -> 100%
+- ### Settings Restore on Power Resume
+  - ESPHome only saves the entity state every ~60s, if power goes off inside that it may not restore the state correctly
 
 - ## Credits
 
